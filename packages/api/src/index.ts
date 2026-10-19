@@ -8,6 +8,7 @@ export * from './extensions/properties';
 export * from './extensions/stats';
 export * from './extensions/tree';
 export * from './types';
+export * from './inspect';
 
 export async function initDevtools(opts: Devtools) {
   const options: Devtools = {

@@ -1,6 +1,7 @@
 import type { PropertiesExtension } from '@pixi/devtools';
 import { extensions } from '../../extensions/Extensions';
 import { PixiHandler } from '../../handler';
+import { getInspectedProperties, setInspectedProperty } from './inspectedFields';
 
 export class Properties extends PixiHandler {
   public static extensions: PropertiesExtension[] = [];
@@ -15,6 +16,8 @@ export class Properties extends PixiHandler {
     const selectedNode = this._devtool.scene.tree.selectedNode;
 
     if (!selectedNode) return;
+    if (selectedNode.__devtoolLocked) return;
+    if (setInspectedProperty(selectedNode, prop, value)) return;
 
     this._extensions.forEach((plugin) => {
       if (plugin.testNode(selectedNode) && plugin.testProp(prop)) {
@@ -39,7 +42,7 @@ export class Properties extends PixiHandler {
       [] as ReturnType<PropertiesExtension['getProperties']>,
     );
 
-    return activeProps || [];
+    return [...getInspectedProperties(selectedNode), ...activeProps];
   }
 }
 
