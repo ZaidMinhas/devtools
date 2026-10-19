@@ -43,6 +43,7 @@ export class Stats extends PixiHandler {
     for (const key in this.stats) {
       // also format the keys to be more readable
       const formattedKey = this.formatCamelCase(key);
+      if (formattedKey === key) continue;
       this.stats[formattedKey] = this.stats[key];
       delete this.stats[key];
     }
