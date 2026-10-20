@@ -10,6 +10,7 @@ export default defineConfig((config) => {
       alias: {
         '@devtool/frontend': path.resolve(process.cwd(), '../../packages/frontend/src/'),
         '@devtool/backend': path.resolve(process.cwd(), '../../packages/backend/src/'),
+        '@pixi/devtools': path.resolve(process.cwd(), '../../packages/api/src/index.ts'),
       },
     },
     root: resolve(__dirname, 'src/'),

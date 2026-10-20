@@ -4,6 +4,8 @@ title: Properties
 
 # Properties Extension
 
+For a simpler way to expose number, string, boolean and enum fields on your scene objects, use the [`@inspect()` decorator](../guide/inspected-fields.md). Use the extension API below when you need custom property behavior or additional control types.
+
 The Properties extension enhances the PixiJS Devtools by enabling you to display and edit the properties of any node within the devtools interface. This powerful feature provides flexibility and customization options, allowing you to:
 
 - **Display and Edit Node Properties**: Easily view and modify properties of PixiJS objects directly within the devtools. Changes are reflected in real-time, streamlining the development and debugging process.
@@ -106,8 +108,7 @@ export type PropertiesEntry = {
     /**
      * The type of input to display for the property.
      */
-    type: 'boolean' | 'number' | 'range' | 'select' | 'text' |
-          'button' | 'vector2' | 'vectorX' | 'color' | 'multi';
+    type: 'boolean' | 'number' | 'range' | 'select' | 'text' | 'button' | 'vector2' | 'vectorX' | 'color' | 'multi';
     /**
      * The options for the input.
      */
@@ -120,4 +121,4 @@ export type PropertiesEntry = {
 To see how to use each type of property, we would recommend looking at how properties are defined for the built-in extensions.
 
 - [Container Properties](https://github.com/pixijs/devtools/blob/main/packages/backend/src/scene/tree/extensions/container/containerPropertyExtension.ts)
-:::
+  :::

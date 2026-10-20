@@ -107,7 +107,7 @@ export const SceneProperties: React.FC = () => {
   const handlePropertyChange = useCallback(
     (property: string, newValue: any) => {
       bridge(`
-        window.__PIXI_DEVTOOLS_WRAPPER__.scene.properties.setValue('${property}', ${newValue})
+        window.__PIXI_DEVTOOLS_WRAPPER__.scene.properties.setValue(${JSON.stringify(property)}, ${newValue})
       `);
     },
     [bridge],

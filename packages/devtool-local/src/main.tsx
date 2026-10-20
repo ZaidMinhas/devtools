@@ -28,7 +28,7 @@ import * as PIXI from 'pixi.js';
         messageListeners.forEach((listener) =>
           listener({
             method: 'pixi-state-update',
-            data: JSON.stringify(PixiDevtools.state),
+            data: JSON.stringify({ ...PixiDevtools.state, stats: PixiDevtools.scene.getStats() }),
           }),
         );
         // @ts-expect-error - TODO: fix this type
@@ -61,16 +61,17 @@ const mockChrome = {
   },
 } as unknown as typeof chrome;
 
-const mockBridge: BridgeFn = (code): Promise<any> => {
-  eval(code);
-  return Promise.resolve();
+const mockBridge: BridgeFn = async (code) => {
+  // Return a snapshot, matching the extension's inspectedWindow.eval bridge.
+  const result = eval(code);
+  return result === undefined ? undefined : JSON.parse(JSON.stringify(result));
 };
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <div id="root" style={{ display: 'flex', flexDirection: 'column', maxHeight: '100vh', alignItems: 'center' }}>
-      <canvas id="canvas" style={{ width: '600px', height: '450px' }} />
-      <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', alignItems: 'center' }}>
+      <canvas id="canvas" style={{ width: 'min(600px, 53.333vh, 100vw)', height: 'auto', flexShrink: 0 }} />
+      <div className="[&_.app]:h-full" style={{ width: '100%', flex: 1, minHeight: 0, overflow: 'hidden' }}>
         <App bridge={mockBridge} chromeProxy={mockChrome} />
       </div>
     </div>

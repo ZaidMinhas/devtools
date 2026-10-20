@@ -1,4 +1,5 @@
-import { Application, Assets, Container, Sprite, Rectangle } from 'pixi.js';
+import { Application, Assets, Sprite, Rectangle } from 'pixi.js';
+import { InspectorDemo } from './InspectorDemo';
 
 export default async function buildScene(canvas: HTMLCanvasElement) {
   // Create a new application
@@ -8,7 +9,7 @@ export default async function buildScene(canvas: HTMLCanvasElement) {
   await app.init({ background: '#1099bb', canvas });
 
   // Create and add a container to the stage
-  const container = new Container();
+  const container = new InspectorDemo();
 
   app.stage.addChild(container);
 
@@ -39,7 +40,7 @@ export default async function buildScene(canvas: HTMLCanvasElement) {
   app.ticker.add((time) => {
     // Continuously rotate the container!
     // * use delta to create frame-independent transform *
-    container.rotation -= 0.01 * time.deltaTime;
+    container.animate(time.deltaTime);
   });
 
   // add two buttons to add and remove bunnies
